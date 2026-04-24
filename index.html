@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রফেশনাল ই-কমার্স</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom Scrollbar for Cart */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        .toast { transition: opacity 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-black text-indigo-700 tracking-tight">E-SHOP<span class="text-gray-900">.</span></h1>
+            
+            <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+
+            <button onclick="toggleCart()" class="relative p-2 hover:bg-gray-100 rounded-full transition">
+                <i class="fas fa-shopping-bag text-2xl text-gray-700"></i>
+                <span id="cartCount" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white transform translate-x-1 -translate-y-1">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="md:hidden px-4 py-3 bg-white border-b">
+        <input type="text" id="mobileSearchInput" placeholder="পণ্য খুঁজুন..." class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500">
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex space-x-3 overflow-x-auto pb-2 scrollbar-hide" id="categoryFilter">
+            <button onclick="filterCategory('all')" class="px-5 py-2 bg-indigo-600 text-white rounded-full text-sm font-medium whitespace-nowrap shadow-sm">সব পণ্য</button>
+            </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 pb-16">
+        <div id="loadingState" class="flex flex-col items-center justify-center py-20">
+            <i class="fas fa-circle-notch fa-spin text-4xl text-indigo-500 mb-4"></i>
+            <p class="text-gray-500">ডেটাবেস থেকে পণ্য লোড হচ্ছে...</p>
+        </div>
+        
+        <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 hidden">
+            </div>
+    </main>
+
+    <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden transition-opacity" onclick="toggleCart()"></div>
+    
+    <div id="cartSidebar" class="fixed right-0 top-0 h-full w-full md:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
+        <div class="px-6 py-4 border-b flex justify-between items-center bg-gray-50">
+            <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-shopping-cart mr-2"></i>আপনার শপিং ব্যাগ</h3>
+            <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-600 p-2"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        
+        <div id="cartItems" class="flex-1 overflow-y-auto p-6 space-y-4">
+            </div>
+        
+        <div class="border-t p-6 bg-gray-50">
+            <div class="flex justify-between items-center text-lg font-bold text-gray-800 mb-4">
+                <span>সর্বমোট:</span>
+                <span id="cartTotal">৳ ০</span>
+            </div>
+            <button onclick="processCheckout()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-indigo-200 transition flex justify-center items-center">
+                <i class="fab fa-whatsapp text-xl mr-2"></i> হোয়াটসঅ্যাপে অর্ডার কনফার্ম করুন
+            </button>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center">
+        <i class="fas fa-check-circle text-green-400 mr-2"></i>
+        <span id="toastMsg">কার্টে যুক্ত হয়েছে!</span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
