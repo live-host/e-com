@@ -153,7 +153,6 @@
             background-position: center;
             background-repeat: no-repeat;
             
-            /* 🔴 THE FIX: Force strict circle clipping and prevent square edges */
             overflow: hidden;
             background-clip: padding-box; 
             -webkit-mask-image: -webkit-radial-gradient(white, black);
@@ -161,7 +160,6 @@
             transform: translateZ(0); 
         }
 
-        /* Force hide text when image is active */
         .profile-img.img-active {
             color: transparent !important;
             font-size: 0px !important;
@@ -177,7 +175,7 @@
             background: #10b981;
             border: 3px solid var(--bg-color);
             border-radius: 50%;
-            z-index: 2; /* Keep dot above the image */
+            z-index: 2;
         }
 
         .name { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.5px; text-align: center; }
@@ -191,8 +189,24 @@
         .social-links { display: flex; gap: 15px; margin-top: 30px; }
         .social-btn { color: var(--text-secondary); font-size: 20px; text-decoration: none; outline: none; }
 
-        .main-content { flex: 1; padding: 40px 50px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
-        .content-section { display: none; opacity: 0; transform: translateY(20px); height: 100%; will-change: opacity, transform; }
+        /* 🔴 THE FIX: Main content layout and Scrollbar */
+        .main-content { 
+            flex: 1; 
+            padding: 40px 50px; 
+            position: relative; 
+            overflow-y: auto; /* Allows scrolling if content grows too large */
+            overflow-x: hidden;
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* Custom Premium Scrollbar */
+        .main-content::-webkit-scrollbar { width: 8px; }
+        .main-content::-webkit-scrollbar-track { background: transparent; }
+        .main-content::-webkit-scrollbar-thumb { background: rgba(var(--accent-rgb), 0.2); border-radius: 10px; }
+        .main-content::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        .content-section { display: none; opacity: 0; transform: translateY(20px); height: auto; min-height: 100%; will-change: opacity, transform; padding-bottom: 20px; }
         .content-section.active { display: flex; flex-direction: column; opacity: 1; transform: translateY(0); animation: slideUp 0.5s ease forwards; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -206,29 +220,36 @@
         #about p { font-size: 15px; line-height: 1.7; margin-bottom: 18px; }
         .about-actions { display: flex; gap: 15px; margin-top: 25px; padding-bottom: 10px; }
 
-        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-bottom: 0px; flex: 1; }
-        .skill-card { background: var(--card-bg); padding: 12px 10px; border-radius: 12px; border: 1px solid var(--glass-border); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-width: 0; }
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding-bottom: 0px; flex: 1; align-items: stretch; }
+        .skill-card { background: var(--card-bg); padding: 18px 15px; border-radius: 12px; border: 1px solid var(--glass-border); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; min-width: 0; height: 100%; }
         .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
-        .skill-icon { font-size: 24px; color: var(--accent); margin-bottom: 8px; flex-shrink: 0; }
-        .skill-card h4 { font-family: 'Poppins', sans-serif; font-size: 14px; margin-bottom: 4px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .skill-card span { font-size: 11px; color: var(--text-secondary); width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .skill-icon { font-size: 24px; color: var(--accent); margin-bottom: 12px; flex-shrink: 0; }
+        
+        /* 🔴 THE FIX: Allow Text Wrapping everywhere */
+        .skill-card h4 { font-family: 'Poppins', sans-serif; font-size: 14px; margin-bottom: 6px; width: 100%; white-space: normal; word-break: break-word; }
+        .skill-card span { font-size: 12px; color: var(--text-secondary); width: 100%; white-space: normal; word-break: break-word; line-height: 1.4; }
 
-        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-bottom: 0px; flex: 1; }
-        .project-card { background: var(--project-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px 15px; display: flex; flex-direction: column; min-width: 0; }
-        .project-tag { background: rgba(var(--accent-rgb), 0.1); color: var(--accent); padding: 2px 8px; border-radius: 12px; font-size: 10px; display: inline-block; align-self: flex-start; margin-bottom: 6px; flex-shrink: 0; }
-        .project-card h3 { font-family: 'Poppins', sans-serif; font-size: 14px; margin-bottom: 5px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .project-card p { font-size: 11px; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding-bottom: 0px; flex: 1; align-items: stretch; }
+        .project-card { background: var(--project-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; min-width: 0; height: 100%; }
+        .project-tag { background: rgba(var(--accent-rgb), 0.1); color: var(--accent); padding: 4px 10px; border-radius: 12px; font-size: 11px; display: inline-block; align-self: flex-start; margin-bottom: 10px; flex-shrink: 0; }
+        
+        /* 🔴 THE FIX: Remove line-clamps and allow paragraphs to grow */
+        .project-card h3 { font-family: 'Poppins', sans-serif; font-size: 15px; margin-bottom: 8px; width: 100%; white-space: normal; word-break: break-word; }
+        .project-card p { font-size: 12px; line-height: 1.5; margin-bottom: 12px; white-space: normal; word-break: break-word; flex-grow: 1; }
+        
         .project-links { margin-top: auto; display: flex; gap: 12px; flex-shrink: 0; }
-        .project-links a { color: var(--text-secondary); text-decoration: none; font-size: 11px; font-weight: 500; outline: none; }
+        .project-links a { color: var(--text-secondary); text-decoration: none; font-size: 12px; font-weight: 500; outline: none; }
 
-        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; flex: 1; }
-        .contact-item { display: flex; align-items: center; gap: 15px; background: var(--card-bg); padding: 14px 20px; border-radius: 12px; border: 1px solid var(--glass-border); transition: all 0.3s ease; min-width: 0; }
-        .contact-icon { width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent); display: flex; justify-content: center; align-items: center; font-size: 18px; }
-        .contact-info { overflow: hidden; width: 100%; }
-        .contact-info h4 { font-size: 12px; color: var(--text-secondary); font-weight: 500; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .contact-info p { font-size: 14px; color: var(--text-primary); font-weight: 600; margin-bottom: 0; font-family: 'Poppins', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; flex: 1; align-items: stretch; }
+        .contact-item { display: flex; align-items: center; gap: 15px; background: var(--card-bg); padding: 15px 20px; border-radius: 12px; border: 1px solid var(--glass-border); transition: all 0.3s ease; min-width: 0; height: 100%; }
+        .contact-icon { width: 45px; height: 45px; flex-shrink: 0; border-radius: 10px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent); display: flex; justify-content: center; align-items: center; font-size: 18px; }
+        .contact-info { width: 100%; }
+        
+        /* 🔴 THE FIX: Allow long emails/links to break and wrap nicely */
+        .contact-info h4 { font-size: 13px; color: var(--text-secondary); font-weight: 500; margin-bottom: 4px; white-space: normal; word-break: break-word; }
+        .contact-info p { font-size: 14px; color: var(--text-primary); font-weight: 600; margin-bottom: 0; font-family: 'Poppins', sans-serif; white-space: normal; word-break: break-word; line-height: 1.4; }
 
-        .hire-btn-container { margin-top: auto; padding-top: 10px; display: flex; justify-content: flex-start; flex-shrink: 0; }
+        .hire-btn-container { margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-start; flex-shrink: 0; }
         .hire-btn { background: var(--btn-bg); color: var(--btn-text); padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; font-family: 'Poppins', sans-serif; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; outline: none; }
 
         @media (hover: hover) {
@@ -257,7 +278,10 @@
             .nav-btn.active { border: none; background: rgba(var(--accent-rgb), 0.15); border-radius: 10px; transform: none; }
             
             .theme-toggle-btn { top: 18px; right: 15px; width: 35px; height: 35px; font-size: 14px; }
-            .main-content { padding: 20px 15px; height: calc(100vh - 75px); }
+            
+            /* Responsive Content Area */
+            .main-content { padding: 20px 15px; height: calc(100vh - 75px); overflow-y: auto; }
+            
             h2 { font-size: 22px; margin-bottom: 8px; }
             p { font-size: 12px; margin-bottom: 10px; line-height: 1.4; }
 
@@ -266,32 +290,30 @@
             .about-actions { flex-direction: column; gap: 10px; padding-top: 10px; margin-top: 15px; }
             .about-actions .hire-btn { width: 100%; justify-content: center; }
             
-            .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-            .skill-card { padding: 10px 5px; }
-            .skill-icon { font-size: 16px; }
-            .skill-card h4 { font-size: 11px; }
-            .skill-card span { display: none; } 
+            .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } /* Improved for mobile readability */
+            .skill-card { padding: 15px 10px; }
+            .skill-icon { font-size: 20px; }
+            .skill-card h4 { font-size: 13px; }
+            .skill-card span { font-size: 11px; display: block; } /* Show text on mobile instead of hiding */
             
-            .projects-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } 
-            .project-card { padding: 10px 5px; align-items: center; justify-content: center; text-align: center; }
-            .project-card p, .project-tag { display: none; } 
-            .project-card h3 { font-size: 11px; margin-bottom: 8px; text-align: center; white-space: pre-wrap; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-            .project-links { justify-content: center; width: 100%; gap: 0; }
+            .projects-grid { grid-template-columns: repeat(1, 1fr); gap: 10px; } /* 1 column on mobile for full text */
+            .project-card { padding: 15px; align-items: flex-start; justify-content: flex-start; text-align: left; }
+            .project-card p, .project-tag { display: block; } /* Show all text on mobile */
+            .project-card h3 { font-size: 14px; margin-bottom: 8px; text-align: left; }
+            .project-links { justify-content: flex-start; width: 100%; gap: 15px; }
             
-            .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 10px;}
-            .contact-item { padding: 6px 8px; }
-            .contact-icon { width: 26px; height: 26px; font-size: 12px; }
-            .contact-info h4 { font-size: 10px; }
-            .contact-info p { font-size: 10px; }
+            .contact-grid { grid-template-columns: repeat(1, 1fr); gap: 10px; margin-bottom: 15px;}
+            .contact-item { padding: 12px 15px; }
+            .contact-icon { width: 35px; height: 35px; font-size: 14px; }
+            .contact-info h4 { font-size: 12px; }
+            .contact-info p { font-size: 13px; }
 
             .hire-btn-container { justify-content: center; padding-top: 5px; }
-            .hire-btn { padding: 10px 20px; font-size: 13px; }
+            .hire-btn { padding: 12px 20px; font-size: 13px; }
         }
 
         @media (max-width: 450px) {
-            .skills-grid { grid-template-columns: repeat(3, 1fr); }
-            .project-card h3 { font-size: 10px; }
-            .contact-grid { grid-template-columns: repeat(2, 1fr); }
+            .skills-grid { grid-template-columns: repeat(1, 1fr); } /* Stack skills on very small phones */
         }
     </style>
 </head>
@@ -459,15 +481,11 @@
             const testImg = new Image();
             
             testImg.onload = () => {
-                // Ignore if sheet already loaded an image and this is a local fallback
                 if (!isFromSheet && profileImg.dataset.sheetLoaded === 'true') return;
                 
                 profileImg.style.backgroundImage = `url('${url}')`;
-                
-                // Force hide the text via CSS class
                 profileImg.classList.add('img-active');
                 profileImg.innerHTML = ''; 
-                
                 profileImg.dataset.imageLoaded = 'true'; 
                 
                 if (isFromSheet) {
@@ -478,9 +496,6 @@
             testImg.src = url;
         }
 
-        // ==========================================
-        // Local Profile Image Auto-Loader
-        // ==========================================
         function autoLoadLocalImage() {
             setValidProfileImage('profile.png', false);
             setValidProfileImage('profile.jpg', false);
@@ -497,7 +512,6 @@
                 const response = await fetch(csvUrl);
                 const data = await response.text();
                 
-                // Parse CSV Data robustly
                 const rows = data.split('\n');
                 const contentMap = {};
                 
@@ -519,9 +533,7 @@
                     contentMap[key] = value;
                 }
 
-                // Inject Data into DOM
                 for (const [key, value] of Object.entries(contentMap)) {
-                    // SEO & Meta
                     if(key === 'page_title') { document.title = value; continue; }
                     if(key === 'meta_description') { 
                         const meta = document.querySelector('meta[name="description"]');
@@ -529,13 +541,11 @@
                         continue; 
                     }
                     
-                    // Profile Image Logic from Google Sheet
                     if(key === 'profile_image_url' && value && value.trim() !== '') {
                         setValidProfileImage(value, true);
                         continue;
                     }
 
-                    // DOM Element Updating
                     const el = document.getElementById(key);
                     if (el) {
                         if (key.includes('_url') || key.startsWith('link_')) {
@@ -544,9 +554,7 @@
                             const isSkillIcon = el.classList.contains('skill-icon');
                             el.className = value + (isSkillIcon ? ' skill-icon' : '');
                         } else {
-                            // Safely update text
                             if (key === 'profile_initials') {
-                                // If CSS class 'img-active' is not there, we can show text safely
                                 if (!el.classList.contains('img-active')) {
                                     el.innerHTML = value; 
                                 }
@@ -561,7 +569,6 @@
             }
         }
 
-        // Initialize fetching & loading on page load
         window.addEventListener('DOMContentLoaded', () => {
             autoLoadLocalImage(); 
             loadDynamicData(); 
