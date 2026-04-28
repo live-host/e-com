@@ -154,6 +154,13 @@
             background-repeat: no-repeat;
         }
 
+        /* 🔴 THE FIX: Force hide text when image is active */
+        .profile-img.img-active {
+            color: transparent !important;
+            font-size: 0px !important;
+            text-indent: -9999px;
+        }
+
         .status-dot {
             position: absolute;
             bottom: 5px;
@@ -435,7 +442,7 @@
         }
 
         // ==========================================
-        // Smart Image Validator (The Fix for Race Condition)
+        // Bulletproof Image & Text Logic (The Ultimate Fix)
         // ==========================================
         function setValidProfileImage(url, isFromSheet = false) {
             const profileImg = document.getElementById('profile_initials');
@@ -444,13 +451,15 @@
             const testImg = new Image();
             
             testImg.onload = () => {
-                // Jodi sheet theke already image ashe, tahole onno kichu hobe na
+                // Ignore if sheet already loaded an image and this is a local fallback
                 if (!isFromSheet && profileImg.dataset.sheetLoaded === 'true') return;
                 
                 profileImg.style.backgroundImage = `url('${url}')`;
-                profileImg.innerHTML = ''; // JD lekha remove korbe
                 
-                // Set powerful flags to stop overwrite
+                // 🔴 Force hide the text via CSS class
+                profileImg.classList.add('img-active');
+                profileImg.innerHTML = ''; 
+                
                 profileImg.dataset.imageLoaded = 'true'; 
                 
                 if (isFromSheet) {
@@ -527,10 +536,10 @@
                             const isSkillIcon = el.classList.contains('skill-icon');
                             el.className = value + (isSkillIcon ? ' skill-icon' : '');
                         } else {
-                            // RACE CONDITION SOLVED: "JD" overwritten prevention 
+                            // Safely update text
                             if (key === 'profile_initials') {
-                                // Shudhumatro tokhoni text boshabe jodi kono image load na hoye thake
-                                if (el.dataset.imageLoaded !== 'true') {
+                                // If CSS class 'img-active' is not there, we can show text safely
+                                if (!el.classList.contains('img-active')) {
                                     el.innerHTML = value; 
                                 }
                             } else {
