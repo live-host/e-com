@@ -152,9 +152,16 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            
+            /* 🔴 THE FIX: Force strict circle clipping and prevent square edges */
+            overflow: hidden;
+            background-clip: padding-box; 
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            isolation: isolate;
+            transform: translateZ(0); 
         }
 
-        /* 🔴 THE FIX: Force hide text when image is active */
+        /* Force hide text when image is active */
         .profile-img.img-active {
             color: transparent !important;
             font-size: 0px !important;
@@ -170,6 +177,7 @@
             background: #10b981;
             border: 3px solid var(--bg-color);
             border-radius: 50%;
+            z-index: 2; /* Keep dot above the image */
         }
 
         .name { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.5px; text-align: center; }
@@ -456,7 +464,7 @@
                 
                 profileImg.style.backgroundImage = `url('${url}')`;
                 
-                // 🔴 Force hide the text via CSS class
+                // Force hide the text via CSS class
                 profileImg.classList.add('img-active');
                 profileImg.innerHTML = ''; 
                 
