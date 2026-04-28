@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Professional Portfolio - Creative & Strategic Professional">
     
     <title>Premium Fixed Portfolio | Multipurpose</title>
@@ -284,10 +285,12 @@
     <div class="shape shape-2"></div>
 
     <div class="container">
+        <!-- Theme Toggle Button -->
         <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
             <i class="fa-solid fa-sun" id="themeIcon"></i>
         </button>
 
+        <!-- Sidebar Section -->
         <div class="sidebar">
             <div class="profile-wrapper">
                 <div class="profile-img" id="profile_initials">JD</div>
@@ -318,8 +321,10 @@
             </div>
         </div>
         
+        <!-- Main Content Area -->
         <div class="main-content">
             
+            <!-- About Section -->
             <div id="about" class="content-section active">
                 <h2><span id="about_heading_normal">Hello, I am</span> <span id="about_heading_highlight">...</span></h2>
                 <p id="about_para_1">Loading content from Google Sheets...</p>
@@ -332,6 +337,7 @@
                 </div>
             </div>
 
+            <!-- Skills Section -->
             <div id="skills" class="content-section">
                 <h2><span id="skills_heading_normal">My</span> <span id="skills_heading_highlight">Expertise</span></h2>
                 <p id="skills_subtext">Loading...</p>
@@ -349,6 +355,7 @@
                 </div>
             </div>
 
+            <!-- Projects Section -->
             <div id="projects" class="content-section">
                 <h2><span id="projects_heading_normal">Featured</span> <span id="projects_heading_highlight">Work</span></h2>
                 <p id="projects_subtext">Loading...</p>
@@ -366,6 +373,7 @@
                 </div>
             </div>
 
+            <!-- Contact Section -->
             <div id="contact" class="content-section">
                 <h2><span id="contact_heading_normal">Get in</span> <span id="contact_heading_highlight">Touch</span></h2>
                 <p id="contact_subtext">Loading...</p>
@@ -426,6 +434,26 @@
         }
 
         // ==========================================
+        // Local Profile Image Auto-Loader
+        // ==========================================
+        function autoLoadLocalImage() {
+            const profileImg = document.getElementById('profile_initials');
+            if(!profileImg) return;
+
+            // Nirdishto Name: profile.png
+            const localImage = new Image();
+            localImage.src = 'profile.png'; 
+
+            localImage.onload = () => {
+                // Jodi Google Sheet theke already kono image load na hoye thake, tahole eiti set korbe
+                if (!profileImg.dataset.sheetLoaded) {
+                    profileImg.style.backgroundImage = `url('profile.png')`;
+                    profileImg.innerText = ''; // "JD" text shoriye dibe
+                }
+            };
+        }
+
+        // ==========================================
         // Google Sheets Data Fetcher (The CMS Core)
         // ==========================================
         async function loadDynamicData() {
@@ -468,12 +496,13 @@
                         continue; 
                     }
                     
-                    // Profile Image Logic
+                    // Profile Image Logic (Google Sheets priority)
                     if(key === 'profile_image_url' && value) {
                         const profileImg = document.getElementById('profile_initials');
                         if(profileImg) {
                             profileImg.style.backgroundImage = `url('${value}')`;
                             profileImg.innerText = ''; // Hide text initials when image loads
+                            profileImg.dataset.sheetLoaded = 'true'; // Mark that sheet loaded an image
                         }
                         continue;
                     }
@@ -497,8 +526,11 @@
             }
         }
 
-        // Initialize fetching on page load
-        window.addEventListener('DOMContentLoaded', loadDynamicData);
+        // Initialize fetching & loading on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            autoLoadLocalImage(); // Try to load 'profile.png'
+            loadDynamicData(); // Fetch from Google Sheets
+        });
     </script>
 </body>
 </html>
