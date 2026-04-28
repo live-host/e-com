@@ -1,607 +1,504 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Google Sheets Powered Professional E-commerce" />
-    <title>EasyShop | Optimized E-Commerce</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS with Custom Config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#312e81',
-                        }
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.4s ease-out forwards',
-                        'shimmer': 'shimmer 1.5s infinite linear',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(15px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        shimmer: {
-                            '0%': { backgroundPosition: '-200% 0' },
-                            '100%': { backgroundPosition: '200% 0' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Portfolio - Creative & Strategic Professional">
+    
+    <title>Premium Fixed Portfolio | Multipurpose</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* Custom Premium Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        :root {
+            /* Default Dark Theme Variables */
+            --bg-color: #0b1120;
+            --gradient-start: #1e293b;
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent: #38bdf8;
+            --accent-rgb: 56, 189, 248;
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --sidebar-bg: rgba(15, 23, 42, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-hover: rgba(255, 255, 255, 0.04);
+            --project-bg: rgba(15, 23, 42, 0.5);
+            --btn-bg: #f8fafc;
+            --btn-text: #0f172a;
+        }
 
-        /* Utilities */
-        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
-        .skeleton {
-            background: #f1f5f9;
-            background-image: linear-gradient(90deg, #f1f5f9 0px, #e2e8f0 40px, #f1f5f9 80px);
-            background-size: 200% 100%;
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --gradient-start: #e2e8f0;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --accent: #0284c7; 
+            --accent-rgb: 2, 132, 199;
+            --accent-glow: rgba(2, 132, 199, 0.3);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --sidebar-bg: rgba(255, 255, 255, 0.4);
+            --card-bg: rgba(0, 0, 0, 0.02);
+            --card-hover: rgba(0, 0, 0, 0.05);
+            --project-bg: rgba(255, 255, 255, 0.5);
+            --btn-bg: #0f172a;
+            --btn-text: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 15% 50%, var(--gradient-start), var(--bg-color));
+            color: var(--text-primary);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; 
+        }
+
+        .shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            transition: background 0.4s ease;
+            pointer-events: none;
+            will-change: background;
+        }
+        .shape-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: rgba(var(--accent-rgb), 0.15); }
+        .shape-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: rgba(129, 140, 248, 0.15); }
+
+        .container {
+            width: 90vw;
+            max-width: 1200px;
+            height: 85vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            display: flex;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            overflow: hidden; 
+        }
+
+        .theme-toggle-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            outline: none;
+        }
+
+        .theme-toggle-btn:focus-visible {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-glow);
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            padding: 50px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid var(--glass-border);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-wrapper { position: relative; margin-bottom: 25px; }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            background: linear-gradient(135deg, var(--accent), #818cf8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 10px 25px var(--accent-glow);
+            border: 4px solid var(--glass-border);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 5px;
+            right: 15px;
+            width: 18px;
+            height: 18px;
+            background: #10b981;
+            border: 3px solid var(--bg-color);
+            border-radius: 50%;
+        }
+
+        .name { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.5px; text-align: center; }
+        .title { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 40px; font-weight: 500; text-align: center; }
+
+        .nav-buttons { width: 100%; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; }
+        .nav-btn { background: transparent; border: 1px solid transparent; color: var(--text-secondary); padding: 14px 20px; border-radius: 14px; cursor: pointer; text-align: left; font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 15px; outline: none; }
+        .nav-btn i { font-size: 18px; width: 24px; text-align: center; }
+        .nav-btn.active { background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.1), transparent); border-left: 3px solid var(--accent); color: var(--text-primary); border-radius: 0 14px 14px 0; transform: translateX(0); }
+
+        .social-links { display: flex; gap: 15px; margin-top: 30px; }
+        .social-btn { color: var(--text-secondary); font-size: 20px; text-decoration: none; outline: none; }
+
+        .main-content { flex: 1; padding: 40px 50px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .content-section { display: none; opacity: 0; transform: translateY(20px); height: 100%; will-change: opacity, transform; }
+        .content-section.active { display: flex; flex-direction: column; opacity: 1; transform: translateY(0); animation: slideUp 0.5s ease forwards; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { font-family: 'Poppins', sans-serif; font-size: 32px; margin-bottom: 5px; font-weight: 700; flex-shrink: 0; }
+        h2 span { color: var(--accent); }
+        p { line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px; font-size: 14px; flex-shrink: 0; }
+
+        #about.active { justify-content: center; }
+        #about h2 { font-size: 38px; margin-bottom: 15px; }
+        #about p { font-size: 15px; line-height: 1.7; margin-bottom: 18px; }
+        .about-actions { display: flex; gap: 15px; margin-top: 25px; padding-bottom: 10px; }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-bottom: 0px; flex: 1; }
+        .skill-card { background: var(--card-bg); padding: 12px 10px; border-radius: 12px; border: 1px solid var(--glass-border); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-width: 0; }
+        .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
+        .skill-icon { font-size: 24px; color: var(--accent); margin-bottom: 8px; flex-shrink: 0; }
+        .skill-card h4 { font-family: 'Poppins', sans-serif; font-size: 14px; margin-bottom: 4px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .skill-card span { font-size: 11px; color: var(--text-secondary); width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-bottom: 0px; flex: 1; }
+        .project-card { background: var(--project-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px 15px; display: flex; flex-direction: column; min-width: 0; }
+        .project-tag { background: rgba(var(--accent-rgb), 0.1); color: var(--accent); padding: 2px 8px; border-radius: 12px; font-size: 10px; display: inline-block; align-self: flex-start; margin-bottom: 6px; flex-shrink: 0; }
+        .project-card h3 { font-family: 'Poppins', sans-serif; font-size: 14px; margin-bottom: 5px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .project-card p { font-size: 11px; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .project-links { margin-top: auto; display: flex; gap: 12px; flex-shrink: 0; }
+        .project-links a { color: var(--text-secondary); text-decoration: none; font-size: 11px; font-weight: 500; outline: none; }
+
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; flex: 1; }
+        .contact-item { display: flex; align-items: center; gap: 15px; background: var(--card-bg); padding: 14px 20px; border-radius: 12px; border: 1px solid var(--glass-border); transition: all 0.3s ease; min-width: 0; }
+        .contact-icon { width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent); display: flex; justify-content: center; align-items: center; font-size: 18px; }
+        .contact-info { overflow: hidden; width: 100%; }
+        .contact-info h4 { font-size: 12px; color: var(--text-secondary); font-weight: 500; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact-info p { font-size: 14px; color: var(--text-primary); font-weight: 600; margin-bottom: 0; font-family: 'Poppins', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .hire-btn-container { margin-top: auto; padding-top: 10px; display: flex; justify-content: flex-start; flex-shrink: 0; }
+        .hire-btn { background: var(--btn-bg); color: var(--btn-text); padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; font-family: 'Poppins', sans-serif; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; outline: none; }
+
+        @media (hover: hover) {
+            .theme-toggle-btn:hover { color: var(--accent); transform: scale(1.1); box-shadow: 0 5px 20px var(--accent-glow); }
+            .nav-btn:hover { background: var(--card-bg); color: var(--text-primary); transform: translateX(5px); }
+            .social-btn:hover, .project-links a:hover { color: var(--accent); transform: translateY(-3px); }
+            .skill-card:hover, .project-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+            .skill-card:hover::before { opacity: 1; }
+            .contact-item:hover { background: var(--card-hover); border-color: rgba(var(--accent-rgb), 0.3); transform: translateY(-2px); }
+            .hire-btn:hover { transform: scale(1.05) translateY(-2px); background: var(--accent); color: #fff; box-shadow: 0 10px 20px var(--accent-glow); }
+        }
+
+        @media (max-width: 900px) {
+            body { padding: 0; }
+            .container { width: 100vw; height: 100vh; border-radius: 0; border: none; flex-direction: column; overflow: hidden; }
+            .sidebar { width: 100%; height: 75px; padding: 0 20px; border-right: none; border-bottom: 1px solid var(--glass-border); flex-direction: row; align-items: center; }
+            .profile-wrapper { margin-bottom: 0; margin-right: auto; }
+            .profile-img { width: 40px; height: 40px; font-size: 16px; border-width: 2px; }
+            .status-dot { width: 10px; height: 10px; bottom: 0px; right: -2px; }
+            .name, .title, .social-links { display: none; } 
+            
+            .nav-buttons { flex-direction: row; width: auto; gap: 5px; margin-right: 45px; }
+            .nav-btn { padding: 10px; border-radius: 10px; }
+            .nav-btn span { display: none; } 
+            .nav-btn i { font-size: 18px; width: auto; margin: 0; }
+            .nav-btn.active { border: none; background: rgba(var(--accent-rgb), 0.15); border-radius: 10px; transform: none; }
+            
+            .theme-toggle-btn { top: 18px; right: 15px; width: 35px; height: 35px; font-size: 14px; }
+            .main-content { padding: 20px 15px; height: calc(100vh - 75px); }
+            h2 { font-size: 22px; margin-bottom: 8px; }
+            p { font-size: 12px; margin-bottom: 10px; line-height: 1.4; }
+
+            #about h2 { font-size: 26px; margin-bottom: 10px; }
+            #about p { font-size: 13px; margin-bottom: 12px; }
+            .about-actions { flex-direction: column; gap: 10px; padding-top: 10px; margin-top: 15px; }
+            .about-actions .hire-btn { width: 100%; justify-content: center; }
+            
+            .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .skill-card { padding: 10px 5px; }
+            .skill-icon { font-size: 16px; }
+            .skill-card h4 { font-size: 11px; }
+            .skill-card span { display: none; } 
+            
+            .projects-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } 
+            .project-card { padding: 10px 5px; align-items: center; justify-content: center; text-align: center; }
+            .project-card p, .project-tag { display: none; } 
+            .project-card h3 { font-size: 11px; margin-bottom: 8px; text-align: center; white-space: pre-wrap; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+            .project-links { justify-content: center; width: 100%; gap: 0; }
+            
+            .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 10px;}
+            .contact-item { padding: 6px 8px; }
+            .contact-icon { width: 26px; height: 26px; font-size: 12px; }
+            .contact-info h4 { font-size: 10px; }
+            .contact-info p { font-size: 10px; }
+
+            .hire-btn-container { justify-content: center; padding-top: 5px; }
+            .hire-btn { padding: 10px 20px; font-size: 13px; }
+        }
+
+        @media (max-width: 450px) {
+            .skills-grid { grid-template-columns: repeat(3, 1fr); }
+            .project-card h3 { font-size: 10px; }
+            .contact-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
+<body>
 
-<body class="bg-[#f8fafc] text-slate-800 antialiased selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
 
-    <!-- Top Navigation -->
-    <header class="sticky top-0 z-40 glass transition-all duration-300 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-            <!-- Logo -->
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Go to top" class="flex items-center gap-2 group outline-none">
-                <div class="bg-gradient-to-tr from-brand-600 to-brand-400 text-white w-10 h-10 rounded-xl grid place-items-center shadow-lg shadow-brand-500/30 group-hover:rotate-6 transition-transform">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-                <div class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 flex items-center">
-                    Easy<span class="text-brand-600">Shop</span>
-                </div>
-            </button>
+    <div class="container">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+            <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
 
-            <!-- Header Actions -->
-            <div class="flex items-center gap-1.5 sm:gap-2">
-                <button onclick="cartLogic.open()" aria-label="Open Cart" class="relative p-2.5 rounded-xl bg-slate-100 text-slate-600 hover:text-brand-600 hover:bg-brand-50 transition-colors group outline-none">
-                    <i class="fa-solid fa-bag-shopping text-xl group-hover:scale-110 transition-transform"></i>
-                    <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[11px] font-extrabold rounded-full h-5 min-w-[20px] px-1 grid place-items-center border-2 border-white shadow-sm scale-0 transition-transform duration-300">0</span>
+        <div class="sidebar">
+            <div class="profile-wrapper">
+                <div class="profile-img" id="profile_initials">JD</div>
+                <div class="status-dot"></div>
+            </div>
+            <div class="name" id="profile_name">Loading...</div>
+            <div class="title" id="profile_title">...</div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showSection('about', this)" aria-label="About Me Section">
+                    <i class="fa-regular fa-user"></i> <span>About Me</span>
+                </button>
+                <button class="nav-btn" onclick="showSection('skills', this)" aria-label="Expertise Section">
+                    <i class="fa-solid fa-award"></i> <span>Expertise</span>
+                </button>
+                <button class="nav-btn" onclick="showSection('projects', this)" aria-label="Portfolio Section">
+                    <i class="fa-solid fa-briefcase"></i> <span>Portfolio</span>
+                </button>
+                <button class="nav-btn" onclick="showSection('contact', this)" aria-label="Contact Section">
+                    <i class="fa-regular fa-envelope"></i> <span>Contact</span>
                 </button>
             </div>
-        </div>
-    </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
-
-        <!-- Results Info -->
-        <div class="text-xs font-medium text-slate-500 flex items-center justify-between mb-4 hidden" id="resultsInfoBox">
-            <div><span id="resultCount" class="font-bold text-slate-800">0</span> ti ponno dekhano hocche</div>
-            <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live</div>
-        </div>
-
-        <!-- Initial Skeleton Loader -->
-        <div id="loader" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 py-4">
-            ${Array(10).fill().map(() => `
-            <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex flex-col h-full">
-                <div class="skeleton animate-shimmer rounded-xl w-full pt-[100%] mb-4"></div>
-                <div class="skeleton animate-shimmer h-4 rounded w-3/4 mb-2"></div>
-                <div class="skeleton animate-shimmer h-3 rounded w-1/2 mb-4"></div>
-                <div class="mt-auto flex justify-between items-center pt-3 border-t border-slate-50">
-                    <div class="skeleton animate-shimmer h-5 w-20 rounded"></div>
-                    <div class="skeleton animate-shimmer h-9 w-9 rounded-full"></div>
-                </div>
-            </div>`).join('')}
-        </div>
-
-        <!-- Error State -->
-        <div id="errorState" class="hidden bg-rose-50/80 border border-rose-200 text-rose-800 p-6 rounded-2xl max-w-2xl mx-auto mt-10 text-center shadow-sm">
-            <i class="fa-solid fa-triangle-exclamation text-4xl text-rose-500 mb-3"></i>
-            <h3 class="text-lg font-bold mb-1">Data load korte somossha hoyeche</h3>
-            <p class="text-sm text-rose-600 mb-4" id="errorMsg">Doya kore internet connection ba sheet link check korun.</p>
-            <button onclick="app.fetchData()" class="px-6 py-2.5 bg-rose-600 text-white rounded-xl font-bold hover:bg-rose-700 shadow-md shadow-rose-200 transition-colors">Punaray chesta korun</button>
-        </div>
-
-        <!-- Empty State -->
-        <div id="emptyState" class="hidden py-20 text-center animate-fade-in-up">
-            <div class="w-24 h-24 mx-auto bg-slate-100 rounded-full flex items-center justify-center mb-5 border-4 border-white shadow-sm">
-                <i class="fa-solid fa-box-open text-4xl text-slate-300"></i>
-            </div>
-            <h3 class="text-xl font-black text-slate-800 mb-2">Kono ponno pawa jayni!</h3>
-            <p class="text-sm text-slate-500 mb-6 max-w-xs mx-auto">Sheet-e ekhono kono ponno jukto kora hoyni.</p>
-            <button onclick="app.fetchData()" class="px-6 py-2.5 bg-brand-50 text-brand-600 rounded-xl font-bold hover:bg-brand-100 transition-colors">Data reload korun</button>
-        </div>
-
-        <!-- Product Grid -->
-        <div id="productGrid" class="hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6"></div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-            <div>
-                <div class="font-black text-slate-800 text-lg">EasyShop</div>
-                <p class="text-xs text-slate-500 mt-1">&copy; 2026 Sorbosotto songrokkhito.</p>
-            </div>
-            <div class="flex gap-4">
-                <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-50 hover:text-brand-600 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-50 hover:text-brand-600 transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" aria-label="WhatsApp" class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#25D366] hover:text-white transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+            <div class="social-links">
+                <a href="#" class="social-btn" id="link_linkedin" aria-label="Visit LinkedIn Profile" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn" id="link_twitter" aria-label="Visit Twitter Profile" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="social-btn" id="link_instagram" aria-label="Visit Instagram Profile" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
-    </footer>
+        
+        <div class="main-content">
+            
+            <div id="about" class="content-section active">
+                <h2><span id="about_heading_normal">Hello, I am</span> <span id="about_heading_highlight">...</span></h2>
+                <p id="about_para_1">Loading content from Google Sheets...</p>
+                <p id="about_para_2"></p>
 
-    <!-- Product Quick View Modal -->
-    <div id="modalOverlay" onclick="ui.closeModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300"></div>
-    <div id="productModal" role="dialog" aria-modal="true" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] w-[92%] max-w-4xl hidden">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
-            <button onclick="ui.closeModal()" aria-label="Close modal" class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-500 hover:text-rose-500 hover:bg-rose-50 shadow-sm transition-colors">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            <div class="grid md:grid-cols-2 max-h-[85vh] overflow-y-auto hide-scroll">
-                <div class="bg-slate-50 relative aspect-square md:aspect-auto">
-                    <img id="modalImg" src="" alt="" class="absolute inset-0 w-full h-full object-cover" />
-                </div>
-                <div class="p-6 md:p-8 flex flex-col">
-                    <span id="modalCategory" class="text-[10px] font-black text-brand-600 uppercase tracking-widest bg-brand-50 px-2.5 py-1 rounded-md inline-block w-max mb-3"></span>
-                    <h2 id="modalName" class="text-2xl md:text-3xl font-black text-slate-900 leading-tight mb-2"></h2>
-                    <div class="text-3xl font-black text-brand-600 mb-6" id="modalPrice"></div>
-                    
-                    <div class="mb-8 flex-1">
-                        <h4 class="text-sm font-bold text-slate-900 mb-2 border-b border-slate-100 pb-2">Ponner biboron</h4>
-                        <p id="modalDesc" class="text-sm text-slate-600 leading-relaxed whitespace-pre-line"></p>
-                    </div>
-
-                    <div class="pt-4 mt-auto">
-                        <button id="modalAddBtn" class="w-full py-4 rounded-xl bg-brand-600 text-white font-black hover:bg-brand-700 shadow-lg shadow-brand-200 flex items-center justify-center gap-2 group transition-all">
-                            <i class="fa-solid fa-cart-plus group-hover:scale-110 transition-transform"></i> Cart-e jukto korun
-                        </button>
-                    </div>
+                <div class="about-actions">
+                    <a href="#" class="hire-btn" id="resume_download_url" target="_blank">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Download CV
+                    </a>
                 </div>
             </div>
+
+            <div id="skills" class="content-section">
+                <h2><span id="skills_heading_normal">My</span> <span id="skills_heading_highlight">Expertise</span></h2>
+                <p id="skills_subtext">Loading...</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-card"><i id="skill_1_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_1_title">...</h4><span id="skill_1_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_2_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_2_title">...</h4><span id="skill_2_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_3_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_3_title">...</h4><span id="skill_3_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_4_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_4_title">...</h4><span id="skill_4_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_5_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_5_title">...</h4><span id="skill_5_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_6_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_6_title">...</h4><span id="skill_6_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_7_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_7_title">...</h4><span id="skill_7_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_8_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_8_title">...</h4><span id="skill_8_subtitle">...</span></div>
+                    <div class="skill-card"><i id="skill_9_icon" class="fa-solid fa-circle-notch fa-spin skill-icon"></i><h4 id="skill_9_title">...</h4><span id="skill_9_subtitle">...</span></div>
+                </div>
+            </div>
+
+            <div id="projects" class="content-section">
+                <h2><span id="projects_heading_normal">Featured</span> <span id="projects_heading_highlight">Work</span></h2>
+                <p id="projects_subtext">Loading...</p>
+                
+                <div class="projects-grid">
+                    <div class="project-card"><div class="project-tag" id="project_1_tag">...</div><h3 id="project_1_title">...</h3><p id="project_1_desc">...</p><div class="project-links"><a href="#" id="project_1_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_2_tag">...</div><h3 id="project_2_title">...</h3><p id="project_2_desc">...</p><div class="project-links"><a href="#" id="project_2_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_3_tag">...</div><h3 id="project_3_title">...</h3><p id="project_3_desc">...</p><div class="project-links"><a href="#" id="project_3_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_4_tag">...</div><h3 id="project_4_title">...</h3><p id="project_4_desc">...</p><div class="project-links"><a href="#" id="project_4_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_5_tag">...</div><h3 id="project_5_title">...</h3><p id="project_5_desc">...</p><div class="project-links"><a href="#" id="project_5_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_6_tag">...</div><h3 id="project_6_title">...</h3><p id="project_6_desc">...</p><div class="project-links"><a href="#" id="project_6_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_7_tag">...</div><h3 id="project_7_title">...</h3><p id="project_7_desc">...</p><div class="project-links"><a href="#" id="project_7_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_8_tag">...</div><h3 id="project_8_title">...</h3><p id="project_8_desc">...</p><div class="project-links"><a href="#" id="project_8_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_9_tag">...</div><h3 id="project_9_title">...</h3><p id="project_9_desc">...</p><div class="project-links"><a href="#" id="project_9_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                </div>
+            </div>
+
+            <div id="contact" class="content-section">
+                <h2><span id="contact_heading_normal">Get in</span> <span id="contact_heading_highlight">Touch</span></h2>
+                <p id="contact_subtext">Loading...</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_1_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_1_title">...</h4><p id="contact_1_value">...</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_2_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_2_title">...</h4><p id="contact_2_value">...</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_3_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_3_title">...</h4><p id="contact_3_value">...</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_4_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_4_title">...</h4><p id="contact_4_value">...</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_5_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_5_title">...</h4><p id="contact_5_value">...</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_6_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_6_title">...</h4><p id="contact_6_value">...</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_7_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_7_title">...</h4><p id="contact_7_value">...</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i id="contact_8_icon" class="fa-solid fa-circle-notch fa-spin"></i></div><div class="contact-info"><h4 id="contact_8_title">...</h4><p id="contact_8_value">...</p></div></div>
+                </div>
+                
+                <div class="hire-btn-container">
+                    <a href="#" class="hire-btn" id="hire_me_url" target="_blank">
+                        Book a Meeting <i class="fa-solid fa-calendar-check"></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Smart Cart Drawer -->
-    <div id="cartOverlay" onclick="cartLogic.close()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[80] hidden opacity-0 transition-opacity duration-300"></div>
-    <aside id="cartSidebar" role="dialog" aria-label="Shopping Cart" class="fixed right-0 top-0 h-full w-[90%] sm:w-[400px] bg-white shadow-2xl z-[90] transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
-        <!-- Header -->
-        <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-white">
-            <h3 class="font-black text-lg text-slate-900 flex items-center gap-2">
-                <i class="fa-solid fa-bag-shopping text-brand-600"></i> Apnar bag
-            </h3>
-            <button onclick="cartLogic.close()" aria-label="Close cart" class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-500 hover:bg-rose-50 hover:text-rose-500 transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-
-        <!-- View 1: Cart Items -->
-        <div id="cartItemsView" class="flex-1 flex flex-col overflow-hidden">
-            <div id="cartList" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#f8fafc]"></div>
-            
-            <div class="p-5 bg-white border-t border-slate-100 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.02)]">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-slate-500 font-bold">Sorbomot:</span>
-                    <span class="text-2xl font-black text-brand-600" id="cartTotalHtml">৳ 0</span>
-                </div>
-                <button onclick="cartLogic.showCheckout()" class="w-full py-3.5 rounded-xl bg-slate-900 text-white font-black hover:bg-slate-800 shadow-lg flex justify-center items-center gap-2 transition-all group">
-                    Order korte egiye jan <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- View 2: Checkout Form -->
-        <div id="checkoutFormView" class="flex-1 flex flex-col overflow-hidden hidden bg-white">
-            <div class="px-5 py-3 bg-slate-50 border-b border-slate-100 flex items-center gap-3">
-                <button onclick="cartLogic.showItems()" aria-label="Go back" class="text-slate-500 hover:text-brand-600 transition-colors"><i class="fa-solid fa-arrow-left"></i></button>
-                <span class="font-bold text-sm text-slate-700">Delivery tothyo</span>
-            </div>
-            
-            <div class="flex-1 overflow-y-auto p-5">
-                <form id="checkoutForm" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Apnar nam <span class="text-rose-500">*</span></label>
-                        <input type="text" id="custName" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm font-medium" placeholder="Sompurno nam likhun">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Mobile number <span class="text-rose-500">*</span></label>
-                        <input type="tel" id="custPhone" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm font-medium" placeholder="01XXX-XXXXXX">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Sompurno thikana <span class="text-rose-500">*</span></label>
-                        <textarea id="custAddress" required rows="3" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm font-medium resize-none" placeholder="Bari no, rasta, elaka, thana, jela"></textarea>
-                    </div>
-                </form>
-                <div class="mt-5 p-3.5 bg-emerald-50 rounded-xl border border-emerald-100 flex gap-3 text-xs text-emerald-800 leading-relaxed font-medium">
-                    <i class="fa-solid fa-shield-check text-emerald-500 text-base"></i>
-                    <div>Apnar tothyo sompurno nirapod. "Order confirm korun" button-e click korle apnake sorasori amader WhatsApp-e niye jawa hobe.</div>
-                </div>
-            </div>
-
-            <div class="p-5 bg-white border-t border-slate-100">
-                <button type="button" onclick="cartLogic.submitOrder()" class="w-full py-4 rounded-xl bg-[#25D366] text-white font-black hover:bg-[#1ebd5c] shadow-lg shadow-green-200 flex justify-center items-center gap-2 transition-all">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Order confirm korun
-                </button>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Global Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 pointer-events-none"></div>
-
     <script>
-        /**
-         * ==========================================
-         * CONFIGURATION
-         * ==========================================
-         */
-        const CONFIG = {
-            SHEET_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRq-yCL7Q3xD2qHby_f6MZLqJ0FKDK2XY3PLptiRxUeiBgMpUZHowbhKnzKlxzfvCgKb2JKNK3VZ_Ud/pub?output=csv',
-            WHATSAPP: '8801747756701' // Format: 880XXXXXXXXX
-        };
+        // UI Navigation & Theme Logic
+        function showSection(sectionId, btnElement) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            const activeSection = document.getElementById(sectionId);
+            activeSection.style.display = 'flex'; 
+            void activeSection.offsetWidth; 
+            activeSection.classList.add('active');
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
 
-        /**
-         * ==========================================
-         * UTILS & HELPERS
-         * ==========================================
-         */
-        const utils = {
-            escapeHTML: (str) => String(str || '').replace(/[&<>'"]/g, tag => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag])),
-            formatPrice: (num) => `৳ ${Number(num).toLocaleString('en-US')}`, // Using en-US for Latin numbers
-            parseNum: (val) => { const n = Number(String(val).replace(/[^\d.]/g, '')); return Number.isFinite(n) ? n : NaN; },
-            createFallbackImg: (text) => {
-                const safeText = encodeURIComponent(text.substring(0, 20));
-                return `data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23f1f5f9%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-family=%22sans-serif%22 font-size=%2220%22 font-weight=%22bold%22 fill=%22%2394a3b8%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3E${safeText}%3C/text%3E%3C/svg%3E`;
-            },
-            // Validate Bangladeshi Phone Number
-            isValidPhone: (phone) => {
-                const regex = /^(?:\+88|88)?(01[3-9]\d{8})$/;
-                return regex.test(phone);
-            },
-            // Safe Local Storage Wrapper to prevent crashing in Incognito
-            storage: {
-                get: (key) => {
-                    try { return JSON.parse(localStorage.getItem(key)) || []; }
-                    catch(e) { return []; }
-                },
-                set: (key, data) => {
-                    try { localStorage.setItem(key, JSON.stringify(data)); }
-                    catch(e) { console.warn('LocalStorage error:', e); }
-                }
-            }
-        };
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const prefersLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const savedTheme = localStorage.getItem('portfolio_theme') || (prefersLightMode ? 'light' : 'dark');
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
 
-        /**
-         * ==========================================
-         * STATE MANAGEMENT
-         * ==========================================
-         */
-        const state = {
-            allData: [],
-            cart: utils.storage.get('esProCart')
-        };
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('portfolio_theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
 
-        /**
-         * ==========================================
-         * CORE APPLICATION LOGIC
-         * ==========================================
-         */
-        const app = {
-            init() {
-                cartLogic.updateUI();
-                this.fetchData();
-            },
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        }
 
-            fetchData() {
-                ['loader'].forEach(id => document.getElementById(id).classList.remove('hidden'));
-                ['errorState', 'emptyState', 'productGrid', 'resultsInfoBox'].forEach(id => document.getElementById(id).classList.add('hidden'));
-
-                Papa.parse(CONFIG.SHEET_URL, {
-                    download: true,
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: (res) => {
-                        const validData = res.data.map(row => ({
-                            id: String(row.id).trim(),
-                            name: String(row.name).trim(),
-                            price: utils.parseNum(row.price),
-                            category: String(row.category || 'General').trim(),
-                            description: String(row.description || '').trim(),
-                            image: String(row.image || '').trim()
-                        })).filter(item => item.id && item.name && !isNaN(item.price));
-
-                        state.allData = validData;
-                        document.getElementById('loader').classList.add('hidden');
-                        ui.renderGrid(state.allData);
-                    },
-                    error: () => {
-                        document.getElementById('loader').classList.add('hidden');
-                        document.getElementById('errorState').classList.remove('hidden');
+        // ==========================================
+        // Google Sheets Data Fetcher (The CMS Core)
+        // ==========================================
+        async function loadDynamicData() {
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDZdX8OBOP6Xc08GfHNs3E59djnTYyxSiv0O053HDp0RtYRFoQodzuwP7lv1lXWA5q9orF_E7j-Mef/pub?output=csv';
+            
+            try {
+                const response = await fetch(csvUrl);
+                const data = await response.text();
+                
+                // Parse CSV Data robustly
+                const rows = data.split('\n');
+                const contentMap = {};
+                
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (!row) continue;
+                    
+                    const firstCommaIdx = row.indexOf(',');
+                    if (firstCommaIdx === -1) continue;
+                    
+                    const key = row.substring(0, firstCommaIdx).trim();
+                    let value = row.substring(firstCommaIdx + 1).trim();
+                    
+                    // Remove surrounding quotes if they exist in CSV
+                    if (value.startsWith('"') && value.endsWith('"')) {
+                        value = value.substring(1, value.length - 1);
                     }
-                });
-            }
-        };
-
-        /**
-         * ==========================================
-         * UI RENDERER
-         * ==========================================
-         */
-        const ui = {
-            renderGrid(items) {
-                const grid = document.getElementById('productGrid');
-                const empty = document.getElementById('emptyState');
-                const info = document.getElementById('resultsInfoBox');
-                
-                document.getElementById('resultCount').textContent = items.length;
-
-                if (items.length === 0) {
-                    grid.classList.add('hidden');
-                    info.classList.add('hidden');
-                    empty.classList.remove('hidden');
-                    return;
+                    value = value.replace(/""/g, '"'); // Handle escaped quotes
+                    
+                    contentMap[key] = value;
                 }
 
-                empty.classList.add('hidden');
-                info.classList.remove('hidden');
-                grid.classList.remove('hidden');
-
-                grid.innerHTML = items.map(p => `
-                    <div class="bg-white rounded-2xl p-3 border border-slate-100 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group cursor-pointer animate-fade-in-up" onclick="ui.openProduct('${p.id}')" tabindex="0" aria-label="View ${utils.escapeHTML(p.name)}">
-                        <div class="relative w-full pt-[100%] rounded-xl overflow-hidden bg-slate-50 mb-3 border border-slate-50">
-                            <img src="${p.image || utils.createFallbackImg(p.name)}" alt="${utils.escapeHTML(p.name)}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" onerror="this.src='${utils.createFallbackImg('Error')}'">
-                            ${p.category ? `<span class="absolute top-2 left-2 bg-white/95 backdrop-blur px-2.5 py-1 rounded-lg text-[9px] font-black text-slate-700 uppercase tracking-wider shadow-sm z-10 border border-slate-100/50">${utils.escapeHTML(p.category)}</span>` : ''}
-                            <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors z-0"></div>
-                        </div>
-                        <div class="flex-1 flex flex-col px-1">
-                            <h3 class="text-sm font-bold text-slate-900 leading-snug mb-1 line-clamp-2 group-hover:text-brand-600 transition-colors">${utils.escapeHTML(p.name)}</h3>
-                            <div class="mt-auto pt-3 flex items-center justify-between">
-                                <span class="text-base font-black text-brand-600">${utils.formatPrice(p.price)}</span>
-                                <button onclick="event.stopPropagation(); cartLogic.add('${p.id}')" aria-label="Add to cart" class="bg-slate-100 text-slate-600 hover:bg-brand-600 hover:text-white h-9 w-9 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm focus:ring-2 focus:ring-brand-500">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            },
-
-            openProduct(id) {
-                const p = state.allData.find(item => item.id === id);
-                if(!p) return;
-
-                document.getElementById('modalImg').src = p.image || utils.createFallbackImg(p.name);
-                document.getElementById('modalCategory').textContent = p.category;
-                document.getElementById('modalName').textContent = p.name;
-                document.getElementById('modalPrice').textContent = utils.formatPrice(p.price);
-                document.getElementById('modalDesc').textContent = p.description || 'Ei ponner kono bistarito biboron nei.';
-                document.getElementById('modalAddBtn').onclick = () => { cartLogic.add(p.id); this.closeModal(); };
-
-                const modal = document.getElementById('productModal');
-                const content = document.getElementById('modalContent');
-                const overlay = document.getElementById('modalOverlay');
-                
-                modal.classList.remove('hidden');
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-                
-                requestAnimationFrame(() => {
-                    overlay.classList.remove('opacity-0');
-                    content.classList.remove('scale-95', 'opacity-0');
-                });
-            },
-
-            closeModal() {
-                const modal = document.getElementById('productModal');
-                const content = document.getElementById('modalContent');
-                const overlay = document.getElementById('modalOverlay');
-                
-                overlay.classList.add('opacity-0');
-                content.classList.add('scale-95', 'opacity-0');
-                
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }, 300);
-            },
-
-            toast(msg, isErr = false) {
-                const box = document.createElement('div');
-                box.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl transform translate-y-10 opacity-0 transition-all duration-300 ${isErr ? 'bg-rose-600 text-white' : 'bg-slate-900 text-white'}`;
-                box.innerHTML = `<i class="fa-solid ${isErr ? 'fa-circle-exclamation' : 'fa-circle-check text-emerald-400'} text-lg"></i> <span class="text-sm font-bold">${utils.escapeHTML(msg)}</span>`;
-                document.getElementById('toast').appendChild(box);
-                
-                requestAnimationFrame(() => box.classList.remove('translate-y-10', 'opacity-0'));
-                setTimeout(() => {
-                    box.classList.add('opacity-0', 'scale-95');
-                    setTimeout(() => box.remove(), 300);
-                }, 2500);
-            }
-        };
-
-        /**
-         * ==========================================
-         * CART & CHECKOUT LOGIC
-         * ==========================================
-         */
-        const cartLogic = {
-            add(id) {
-                const item = state.cart.find(i => i.id === id);
-                if (item) item.qty++;
-                else state.cart.push({ id, qty: 1 });
-                this.save();
-                ui.toast('Cart-e jukto kora hoyeche!');
-                
-                // Badge Animation
-                const badge = document.getElementById('cartCountBadge');
-                badge.classList.add('scale-125');
-                setTimeout(() => badge.classList.remove('scale-125'), 200);
-            },
-
-            update(id, delta) {
-                const idx = state.cart.findIndex(i => i.id === id);
-                if (idx > -1) {
-                    state.cart[idx].qty += delta;
-                    if (state.cart[idx].qty <= 0) state.cart.splice(idx, 1);
-                    this.save();
-                }
-            },
-
-            remove(id) {
-                state.cart = state.cart.filter(i => i.id !== id);
-                this.save();
-                ui.toast('Ponno-ti bad dewa hoyeche', true);
-            },
-
-            save() {
-                utils.storage.set('esProCart', state.cart);
-                this.updateUI();
-            },
-
-            updateUI() {
-                const list = document.getElementById('cartList');
-                let tQty = 0, tPrice = 0;
-                let html = '';
-
-                if(state.cart.length === 0) {
-                    html = `
-                        <div class="h-full min-h-[300px] flex flex-col items-center justify-center text-slate-400">
-                            <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-4"><i class="fa-solid fa-basket-shopping text-2xl opacity-50"></i></div>
-                            <p class="font-bold text-slate-600">Bag khali!</p>
-                            <p class="text-xs mt-1">Pochhonder ponno cart-e jukto korun</p>
-                        </div>`;
-                } else {
-                    state.cart.forEach(cartItem => {
-                        const p = state.allData.find(d => d.id === cartItem.id);
-                        if(!p) return; // Product deleted from sheet
-                        
-                        tQty += cartItem.qty;
-                        const lineTotal = p.price * cartItem.qty;
-                        tPrice += lineTotal;
-
-                        html += `
-                            <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex gap-3 relative animate-fade-in-up">
-                                <img src="${p.image || utils.createFallbackImg(p.name)}" class="w-20 h-20 rounded-xl object-cover bg-slate-50 border border-slate-100">
-                                <div class="flex-1 min-w-0 flex flex-col">
-                                    <h4 class="font-bold text-sm text-slate-900 truncate pr-6">${utils.escapeHTML(p.name)}</h4>
-                                    <div class="text-xs font-medium text-slate-500 mt-0.5">${utils.formatPrice(p.price)} /ti</div>
-                                    <div class="mt-auto flex items-center justify-between">
-                                        <div class="font-black text-brand-600 text-sm">${utils.formatPrice(lineTotal)}</div>
-                                        <div class="flex items-center bg-slate-50 rounded-lg border border-slate-200 h-8">
-                                            <button onclick="cartLogic.update('${p.id}', -1)" aria-label="Decrease quantity" class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-brand-600 hover:bg-slate-100 rounded-l-lg transition-colors"><i class="fa-solid fa-minus text-[10px]"></i></button>
-                                            <span class="w-8 text-center text-xs font-bold text-slate-800">${cartItem.qty}</span>
-                                            <button onclick="cartLogic.update('${p.id}', 1)" aria-label="Increase quantity" class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-brand-600 hover:bg-slate-100 rounded-r-lg transition-colors"><i class="fa-solid fa-plus text-[10px]"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button onclick="cartLogic.remove('${p.id}')" aria-label="Remove item" class="absolute top-2 right-2 w-7 h-7 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-colors"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
-                            </div>`;
-                    });
-                }
-
-                list.innerHTML = html;
-                const badge = document.getElementById('cartCountBadge');
-                badge.textContent = tQty;
-                badge.style.transform = tQty > 0 ? 'scale(1)' : 'scale(0)';
-                document.getElementById('cartTotalHtml').textContent = utils.formatPrice(tPrice);
-                
-                if(tQty === 0) this.showItems(); // Reset to items view if empty
-            },
-
-            open() {
-                document.getElementById('cartOverlay').classList.remove('hidden');
-                document.getElementById('cartSidebar').classList.remove('translate-x-full');
-                requestAnimationFrame(() => document.getElementById('cartOverlay').classList.remove('opacity-0'));
-                document.body.style.overflow = 'hidden';
-            },
-
-            close() {
-                document.getElementById('cartSidebar').classList.add('translate-x-full');
-                document.getElementById('cartOverlay').classList.add('opacity-0');
-                setTimeout(() => {
-                    document.getElementById('cartOverlay').classList.add('hidden');
-                    document.body.style.overflow = '';
-                }, 300);
-            },
-
-            showCheckout() {
-                if (state.cart.length === 0) return ui.toast('Cart-e kono ponno nei!', true);
-                document.getElementById('cartItemsView').classList.add('hidden');
-                document.getElementById('checkoutFormView').classList.remove('hidden');
-            },
-
-            showItems() {
-                document.getElementById('checkoutFormView').classList.add('hidden');
-                document.getElementById('cartItemsView').classList.remove('hidden');
-            },
-
-            submitOrder() {
-                const name = document.getElementById('custName').value.trim();
-                const phone = document.getElementById('custPhone').value.trim();
-                const address = document.getElementById('custAddress').value.trim();
-
-                if (!name || !phone || !address) {
-                    return ui.toast('Doya kore form er shob tothyo prodan korun', true);
-                }
-
-                // Phone validation check
-                if (!utils.isValidPhone(phone)) {
-                    return ui.toast('Doya kore sothik mobile number din (01...)', true);
-                }
-
-                let msg = `🛍️ *Notun Order (EasyShop)*\n\n`;
-                msg += `👤 *Nam:* ${name}\n`;
-                msg += `📞 *Phone:* ${phone}\n`;
-                msg += `📍 *Thikana:* ${address}\n\n`;
-                msg += `📦 *Order-er Biboron:*\n`;
-
-                let grand = 0;
-                state.cart.forEach((item, i) => {
-                    const p = state.allData.find(d => d.id === item.id);
-                    if(p) {
-                        const line = p.price * item.qty;
-                        grand += line;
-                        msg += `${i+1}. ${p.name} (${item.qty} x ৳${p.price}) = ৳${line}\n`;
+                // Inject Data into DOM
+                for (const [key, value] of Object.entries(contentMap)) {
+                    // SEO & Meta
+                    if(key === 'page_title') { document.title = value; continue; }
+                    if(key === 'meta_description') { 
+                        const meta = document.querySelector('meta[name="description"]');
+                        if(meta) meta.setAttribute('content', value);
+                        continue; 
                     }
-                });
+                    
+                    // Profile Image Logic
+                    if(key === 'profile_image_url' && value) {
+                        const profileImg = document.getElementById('profile_initials');
+                        if(profileImg) {
+                            profileImg.style.backgroundImage = `url('${value}')`;
+                            profileImg.innerText = ''; // Hide text initials when image loads
+                        }
+                        continue;
+                    }
 
-                msg += `\n💰 *Sorbomot Bill: ৳${grand.toLocaleString('en-US')}*\n\nDoya kore order-ti confirm korun.`;
-
-                const url = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`;
-                window.open(url, '_blank', 'noopener,noreferrer');
+                    // DOM Element Updating
+                    const el = document.getElementById(key);
+                    if (el) {
+                        if (key.includes('_url') || key.startsWith('link_')) {
+                            el.href = value; // Update Links
+                        } else if (key.includes('_icon')) {
+                            // Update Icons while keeping structural classes
+                            const isSkillIcon = el.classList.contains('skill-icon');
+                            el.className = value + (isSkillIcon ? ' skill-icon' : '');
+                        } else {
+                            el.innerHTML = value; // Update Texts
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching CMS data from Google Sheets:', error);
             }
-        };
+        }
 
-        // Initialize App
-        document.addEventListener('DOMContentLoaded', () => app.init());
+        // Initialize fetching on page load
+        window.addEventListener('DOMContentLoaded', loadDynamicData);
     </script>
 </body>
 </html>
