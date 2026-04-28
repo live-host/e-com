@@ -68,6 +68,65 @@
             overflow: hidden; 
         }
 
+        /* ==========================================
+           PREMIUM GLASSMORPHISM PRELOADER
+           ========================================== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 17, 32, 0.75); /* Dark Glass */
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        [data-theme="light"] .preloader {
+            background: rgba(241, 245, 249, 0.75); /* Light Glass */
+        }
+
+        .loader-ring {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--glass-border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        .preloader-text {
+            margin-top: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulseText 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulseText { 
+            0%, 100% { opacity: 1; transform: scale(1); } 
+            50% { opacity: 0.5; transform: scale(0.98); } 
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* ========================================== */
+
         .shape {
             position: fixed;
             border-radius: 50%;
@@ -189,18 +248,16 @@
         .social-links { display: flex; gap: 15px; margin-top: 30px; }
         .social-btn { color: var(--text-secondary); font-size: 20px; text-decoration: none; outline: none; }
 
-        /* 🔴 THE FIX: Main content layout and Scrollbar */
         .main-content { 
             flex: 1; 
             padding: 40px 50px; 
             position: relative; 
-            overflow-y: auto; /* Allows scrolling if content grows too large */
+            overflow-y: auto;
             overflow-x: hidden;
             display: flex; 
             flex-direction: column; 
         }
 
-        /* Custom Premium Scrollbar */
         .main-content::-webkit-scrollbar { width: 8px; }
         .main-content::-webkit-scrollbar-track { background: transparent; }
         .main-content::-webkit-scrollbar-thumb { background: rgba(var(--accent-rgb), 0.2); border-radius: 10px; }
@@ -224,19 +281,14 @@
         .skill-card { background: var(--card-bg); padding: 18px 15px; border-radius: 12px; border: 1px solid var(--glass-border); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; min-width: 0; height: 100%; }
         .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
         .skill-icon { font-size: 24px; color: var(--accent); margin-bottom: 12px; flex-shrink: 0; }
-        
-        /* 🔴 THE FIX: Allow Text Wrapping everywhere */
         .skill-card h4 { font-family: 'Poppins', sans-serif; font-size: 14px; margin-bottom: 6px; width: 100%; white-space: normal; word-break: break-word; }
         .skill-card span { font-size: 12px; color: var(--text-secondary); width: 100%; white-space: normal; word-break: break-word; line-height: 1.4; }
 
         .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding-bottom: 0px; flex: 1; align-items: stretch; }
         .project-card { background: var(--project-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; min-width: 0; height: 100%; }
         .project-tag { background: rgba(var(--accent-rgb), 0.1); color: var(--accent); padding: 4px 10px; border-radius: 12px; font-size: 11px; display: inline-block; align-self: flex-start; margin-bottom: 10px; flex-shrink: 0; }
-        
-        /* 🔴 THE FIX: Remove line-clamps and allow paragraphs to grow */
         .project-card h3 { font-family: 'Poppins', sans-serif; font-size: 15px; margin-bottom: 8px; width: 100%; white-space: normal; word-break: break-word; }
         .project-card p { font-size: 12px; line-height: 1.5; margin-bottom: 12px; white-space: normal; word-break: break-word; flex-grow: 1; }
-        
         .project-links { margin-top: auto; display: flex; gap: 12px; flex-shrink: 0; }
         .project-links a { color: var(--text-secondary); text-decoration: none; font-size: 12px; font-weight: 500; outline: none; }
 
@@ -244,8 +296,6 @@
         .contact-item { display: flex; align-items: center; gap: 15px; background: var(--card-bg); padding: 15px 20px; border-radius: 12px; border: 1px solid var(--glass-border); transition: all 0.3s ease; min-width: 0; height: 100%; }
         .contact-icon { width: 45px; height: 45px; flex-shrink: 0; border-radius: 10px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent); display: flex; justify-content: center; align-items: center; font-size: 18px; }
         .contact-info { width: 100%; }
-        
-        /* 🔴 THE FIX: Allow long emails/links to break and wrap nicely */
         .contact-info h4 { font-size: 13px; color: var(--text-secondary); font-weight: 500; margin-bottom: 4px; white-space: normal; word-break: break-word; }
         .contact-info p { font-size: 14px; color: var(--text-primary); font-weight: 600; margin-bottom: 0; font-family: 'Poppins', sans-serif; white-space: normal; word-break: break-word; line-height: 1.4; }
 
@@ -279,7 +329,6 @@
             
             .theme-toggle-btn { top: 18px; right: 15px; width: 35px; height: 35px; font-size: 14px; }
             
-            /* Responsive Content Area */
             .main-content { padding: 20px 15px; height: calc(100vh - 75px); overflow-y: auto; }
             
             h2 { font-size: 22px; margin-bottom: 8px; }
@@ -290,15 +339,15 @@
             .about-actions { flex-direction: column; gap: 10px; padding-top: 10px; margin-top: 15px; }
             .about-actions .hire-btn { width: 100%; justify-content: center; }
             
-            .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } /* Improved for mobile readability */
+            .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .skill-card { padding: 15px 10px; }
             .skill-icon { font-size: 20px; }
             .skill-card h4 { font-size: 13px; }
-            .skill-card span { font-size: 11px; display: block; } /* Show text on mobile instead of hiding */
+            .skill-card span { font-size: 11px; display: block; }
             
-            .projects-grid { grid-template-columns: repeat(1, 1fr); gap: 10px; } /* 1 column on mobile for full text */
+            .projects-grid { grid-template-columns: repeat(1, 1fr); gap: 10px; }
             .project-card { padding: 15px; align-items: flex-start; justify-content: flex-start; text-align: left; }
-            .project-card p, .project-tag { display: block; } /* Show all text on mobile */
+            .project-card p, .project-tag { display: block; }
             .project-card h3 { font-size: 14px; margin-bottom: 8px; text-align: left; }
             .project-links { justify-content: flex-start; width: 100%; gap: 15px; }
             
@@ -313,11 +362,17 @@
         }
 
         @media (max-width: 450px) {
-            .skills-grid { grid-template-columns: repeat(1, 1fr); } /* Stack skills on very small phones */
+            .skills-grid { grid-template-columns: repeat(1, 1fr); }
         }
     </style>
 </head>
 <body>
+
+    <!-- Premium Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="loader-ring"></div>
+        <div class="preloader-text">Loading Experience...</div>
+    </div>
 
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>
@@ -399,15 +454,15 @@
                 <p id="projects_subtext">Loading...</p>
                 
                 <div class="projects-grid">
-                    <div class="project-card"><div class="project-tag" id="project_1_tag">...</div><h3 id="project_1_title">...</h3><p id="project_1_desc">...</p><div class="project-links"><a href="#" id="project_1_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_2_tag">...</div><h3 id="project_2_title">...</h3><p id="project_2_desc">...</p><div class="project-links"><a href="#" id="project_2_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_3_tag">...</div><h3 id="project_3_title">...</h3><p id="project_3_desc">...</p><div class="project-links"><a href="#" id="project_3_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_4_tag">...</div><h3 id="project_4_title">...</h3><p id="project_4_desc">...</p><div class="project-links"><a href="#" id="project_4_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_5_tag">...</div><h3 id="project_5_title">...</h3><p id="project_5_desc">...</p><div class="project-links"><a href="#" id="project_5_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_6_tag">...</div><h3 id="project_6_title">...</h3><p id="project_6_desc">...</p><div class="project-links"><a href="#" id="project_6_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_7_tag">...</div><h3 id="project_7_title">...</h3><p id="project_7_desc">...</p><div class="project-links"><a href="#" id="project_7_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_8_tag">...</div><h3 id="project_8_title">...</h3><p id="project_8_desc">...</p><div class="project-links"><a href="#" id="project_8_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
-                    <div class="project-card"><div class="project-tag" id="project_9_tag">...</div><h3 id="project_9_title">...</h3><p id="project_9_desc">...</p><div class="project-links"><a href="#" id="project_9_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_1_tag">...</div><h3 id="project_1_title">...</h3><p id="project_1_desc">...<br></p><div class="project-links"><a href="#" id="project_1_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_2_tag">...</div><h3 id="project_2_title">...</h3><p id="project_2_desc">...<br></p><div class="project-links"><a href="#" id="project_2_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_3_tag">...</div><h3 id="project_3_title">...</h3><p id="project_3_desc">...<br></p><div class="project-links"><a href="#" id="project_3_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_4_tag">...</div><h3 id="project_4_title">...</h3><p id="project_4_desc">...<br></p><div class="project-links"><a href="#" id="project_4_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_5_tag">...</div><h3 id="project_5_title">...</h3><p id="project_5_desc">...<br></p><div class="project-links"><a href="#" id="project_5_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_6_tag">...</div><h3 id="project_6_title">...</h3><p id="project_6_desc">...<br></p><div class="project-links"><a href="#" id="project_6_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_7_tag">...</div><h3 id="project_7_title">...</h3><p id="project_7_desc">...<br></p><div class="project-links"><a href="#" id="project_7_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_8_tag">...</div><h3 id="project_8_title">...</h3><p id="project_8_desc">...<br></p><div class="project-links"><a href="#" id="project_8_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
+                    <div class="project-card"><div class="project-tag" id="project_9_tag">...</div><h3 id="project_9_title">...</h3><p id="project_9_desc">...<br></p><div class="project-links"><a href="#" id="project_9_url" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a></div></div>
                 </div>
             </div>
 
@@ -472,7 +527,7 @@
         }
 
         // ==========================================
-        // Bulletproof Image & Text Logic (The Ultimate Fix)
+        // Bulletproof Image & Text Logic
         // ==========================================
         function setValidProfileImage(url, isFromSheet = false) {
             const profileImg = document.getElementById('profile_initials');
@@ -566,6 +621,15 @@
                 }
             } catch (error) {
                 console.error('Error fetching CMS data from Google Sheets:', error);
+            } finally {
+                // 🔴 THE PRELOADER FADE-OUT LOGIC
+                // Half second delay added to make the transition feel smooth & natural
+                setTimeout(() => {
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) {
+                        preloader.classList.add('hidden');
+                    }
+                }, 500); 
             }
         }
 
